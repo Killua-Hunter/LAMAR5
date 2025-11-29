@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>For My Best Friend ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -19,12 +19,14 @@
             touch-action: manipulation;
             background: linear-gradient(135deg, #f9a8d4, #f3e8ff);
         }
+
         #app {
             position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
         }
+
         #content {
             position: relative;
             z-index: 10;
@@ -37,6 +39,7 @@
             padding: 20px;
             box-sizing: border-box;
         }
+
         .step {
             position: absolute;
             width: 100%;
@@ -52,11 +55,13 @@
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
         }
+
         .step.active {
             opacity: 1;
             transform: translateY(0);
             pointer-events: all;
         }
+
         .btn {
             background: linear-gradient(135deg, #ec4899, #f43f5e);
             color: white;
@@ -69,34 +74,55 @@
             box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
             transition: all 0.3s ease;
         }
+
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
         }
+
         .btn:active {
             transform: translateY(0);
         }
+
         .text-gradient {
             background: linear-gradient(135deg, #ec4899, #f43f5e, #f59e0b);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
+
         .heart-beat {
             animation: heartbeat 1.5s ease-in-out infinite;
         }
+
         @keyframes heartbeat {
-            0% { transform: scale(1);}
-            25% { transform: scale(1.1);}
-            50% { transform: scale(1);}
-            75% { transform: scale(1.1);}
-            100% { transform: scale(1);}
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            75% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
+
         .emoji {
             font-size: 3rem;
             margin-bottom: 20px;
             display: inline-block;
         }
+
         .reason-card {
             background: white;
             border-radius: 15px;
@@ -105,10 +131,12 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
+
         .reason-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
+
         #progress-container {
             position: fixed;
             top: 20px;
@@ -121,6 +149,7 @@
             border-radius: 3px;
             z-index: 100;
         }
+
         #progress-bar {
             height: 100%;
             width: 0%;
@@ -128,6 +157,7 @@
             border-radius: 3px;
             transition: width 0.5s ease;
         }
+
         #canvas-container {
             position: fixed;
             top: 0;
@@ -137,60 +167,113 @@
             z-index: 1;
         }
 
-        /* Gallery / scrapbook styles */
-        .gallery-tray {
+        /* Gallery / slideshow styles */
+        .thumb-row {
             display: flex;
             gap: 12px;
             justify-content: center;
-            flex-wrap: wrap;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin-bottom: 14px;
+            overflow-x: auto;
+            padding: 8px 4px;
+            width: 100%;
         }
+
         .thumb {
-            width: 110px;
-            height: 110px;
+            width: 90px;
+            height: 90px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-            cursor: grab;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
             user-select: none;
+            flex: 0 0 auto;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            border: 3px solid transparent;
+            background: #fff;
         }
+
         .thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        .dropzone {
-            margin-top: 20px;
+
+        .thumb:hover {
+            transform: translateY(-4px);
+        }
+
+        .thumb.active {
+            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.4);
+            border-color: rgba(255, 105, 180, 0.9);
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .screen-card {
             width: 100%;
-            max-width: 760px;
-            height: 360px;
-            border: 2px dashed rgba(244,63,94,0.35);
-            border-radius: 12px;
+            max-width: 720px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7));
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
             position: relative;
-            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+        }
+
+        .screen {
+            width: 100%;
+            height: 380px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #eee;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #9ca3af;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
-        .dropzone .hint {
-            pointer-events: none;
+
+        .screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
-        .dropped-img {
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            border-radius: 10px;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-            touch-action: none; /* allow pointer events */
-            user-select: none;
-            cursor: grab;
+
+        /* glow outline around the screen when active */
+        .screen.glow {
+            box-shadow: 0 0 40px 8px rgba(255, 105, 180, 0.18), 0 12px 40px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
         }
+
+        .screen-caption {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #6b21a8;
+        }
+
         .controls-row {
-            display:flex;
-            gap:12px;
-            justify-content:center;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
             margin-top: 14px;
+        }
+
+        /* small responsive tweaks */
+        @media (max-width: 640px) {
+            .screen {
+                height: 240px;
+            }
+
+            .thumb {
+                width: 72px;
+                height: 72px;
+            }
         }
     </style>
 </head>
@@ -248,34 +331,28 @@
                 <button class="btn" id="next-btn-3">Stroll Down Memory Lane</button>
             </div>
 
-            <!-- NEW Step 4: Small images / gallery tray & movable scrapbook -->
-            <div class="step" id="step4">
+            <!-- NEW Step 4: thumbnails above + big screen below; rotates every 5s; clicking a thumbnail shows in screen -->
+            <div class="step" id="step4" aria-live="polite">
                 <div class="emoji">🖼️</div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Share More Memories</h2>
-                <p class="text-lg text-gray-700 mb-6">Drag the small images into the scrapbook area below. Once dropped, you can move them around to arrange your favorite moments.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Memories & Slideshow</h2>
+                <p class="text-lg text-gray-700 mb-6">Small images are shown above. The big screen below displays each image respectively every 5 seconds with a glow on the
+                    shown thumbnail. Click any small image to show it in the big screen immediately.</p>
 
-                <div class="gallery-tray" id="gallery-tray">
-                    <!-- Thumbnails - using Lamar.jpg as primary source and fallbacks -->
-                    <div class="thumb" draggable="true" data-src="Me.jpg">
-                        <img src="Lamar.jpg" alt="thumb1" onerror="this.src='https://picsum.photos/seed/1/400'">
-                    </div>
-                    <div class="thumb" draggable="true" data-src="Hermatch.jpg">
-                        <img src="Lamar.jpg" alt="thumb2" onerror="this.src='https://picsum.photos/seed/2/400'">
-                    </div>
-                    <div class="thumb" draggable="true" data-src="Mymatch.jpg">
-                        <img src="Lamar.jpg" alt="thumb3" onerror="this.src='https://picsum.photos/seed/3/400'">
-                    </div>
-                    <div class="thumb" draggable="true" data-src="Home.jpg">
-                        <img src="Lamar.jpg" alt="thumb4" onerror="this.src='https://picsum.photos/seed/4/400'">
-                    </div>
+                <!-- Thumbnails row -->
+                <div class="thumb-row" id="thumb-row" role="list" aria-label="Memory thumbnails">
+                    <!-- injected by JS -->
                 </div>
 
-                <div class="dropzone" id="scrapbook">
-                    <div class="hint">Drop images here — then drag them around to arrange</div>
+                <!-- Big screen card -->
+                <div class="screen-card" id="screen-card" role="region" aria-label="Memory preview">
+                    <div class="screen glow" id="big-screen" aria-live="polite">
+                        <img id="big-screen-img" src="" alt="Selected memory" />
+                    </div>
+                    <div class="screen-caption" id="screen-caption">Slot 1</div>
                 </div>
 
                 <div class="controls-row">
-                    <button class="btn" id="clear-scrapbook">Clear Scrapbook</button>
+                    <button class="btn" id="reset-slots">Reset View</button>
                     <button class="btn" id="next-btn-gallery">Continue</button>
                 </div>
             </div>
@@ -312,7 +389,7 @@
     </div>
 
     <script>
-        // Three.js Heart Background and existing animation code unchanged (kept compact here)
+        // Three.js Heart Background and existing animation code (unchanged)
         const container = document.getElementById('canvas-container');
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -521,121 +598,188 @@
         updateProgressBar();
 
         // --------------------
-        // Gallery / scrapbook logic
+        // NEW: thumbnails + big screen (rotating every 5s). Click thumbnail to show in screen.
         // --------------------
-        const tray = document.getElementById('gallery-tray');
-        const scrapbook = document.getElementById('scrapbook');
-        let dropCounter = 0;
+        const thumbRow = document.getElementById('thumb-row');
+        const bigScreenImg = document.getElementById('big-screen-img');
+        const bigScreen = document.getElementById('big-screen');
+        const screenCaption = document.getElementById('screen-caption');
 
-        // Add dragstart to thumbnails
-        tray.querySelectorAll('.thumb').forEach(thumb => {
-            thumb.addEventListener('dragstart', (e) => {
-                const src = thumb.getAttribute('data-src') || thumb.querySelector('img').src;
-                e.dataTransfer.setData('text/plain', src);
-                // create a drag image for nicer UX
-                const dragImg = thumb.querySelector('img').cloneNode();
-                dragImg.style.width = '120px';
-                dragImg.style.height = '120px';
-                dragImg.style.objectFit = 'cover';
-                document.body.appendChild(dragImg);
-                e.dataTransfer.setDragImage(dragImg, 60, 60);
-                // cleanup after a tiny delay
-                setTimeout(() => { if (dragImg && dragImg.parentNode) dragImg.parentNode.removeChild(dragImg); }, 0);
+        // images array (relative file names from repo, will fallback to Lamar.jpg or picsum)
+        const images = [
+            'Me.jpg',
+            'Hermatch.jpg',
+            'Mymatch.jpg',
+            'Home.jpg',
+            'Lamar.jpg'
+        ];
+
+        const NUM_THUMBS = 5;
+        let activeIndex = 0;
+        let rotTimer = null;
+        const thumbs = [];
+
+        // create thumbnail elements
+        for (let i = 0; i < NUM_THUMBS; i++) {
+            const t = document.createElement('div');
+            t.className = 'thumb';
+            t.setAttribute('role', 'listitem');
+            t.setAttribute('data-index', i);
+
+            const im = document.createElement('img');
+            // choose source (if images shorter, loop)
+            im.src = images[i % images.length];
+            im.alt = `memory-thumb-${i+1}`;
+
+            // fallback strategy
+            im.onerror = function () {
+                if (!this.dataset._triedFallback) {
+                    this.dataset._triedFallback = '1';
+                    this.src = 'Lamar.jpg';
+                } else {
+                    this.src = `https://picsum.photos/seed/thumb${i}/400`;
+                }
+            };
+
+            t.appendChild(im);
+
+            // click: show in big screen and restart rotation timer
+            t.addEventListener('click', (e) => {
+                const idx = parseInt(t.getAttribute('data-index'), 10);
+                setActive(idx, true);
+            });
+
+            thumbRow.appendChild(t);
+            thumbs.push(t);
+        }
+
+        // show the given index in big screen and highlight corresponding thumb
+        function setActive(index, userClicked = false) {
+            activeIndex = index % NUM_THUMBS;
+            const imgSrc = images[activeIndex % images.length];
+            bigScreenImg.src = imgSrc;
+            bigScreenImg.alt = `Memory ${activeIndex + 1}`;
+            // reset fallback marker so new image can try again if needed
+            delete bigScreenImg.dataset._triedFallback;
+            bigScreenImg.onerror = function () {
+                if (!this.dataset._triedFallback) {
+                    this.dataset._triedFallback = '1';
+                    this.src = 'Lamar.jpg';
+                } else {
+                    this.src = `https://picsum.photos/seed/screen${activeIndex}/1000`;
+                }
+            };
+
+            // highlight active thumbnail (glow outline)
+            thumbs.forEach((t, i) => {
+                if (i === activeIndex) {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+
+            // add glow to screen briefly (or keep)
+            bigScreen.classList.add('glow');
+
+            // update caption
+            screenCaption.textContent = `Slot ${activeIndex + 1}`;
+
+            // if user clicked, restart rotation (so next automatic change happens 5s after click)
+            if (userClicked) restartRotation();
+        }
+
+        // rotation: advance activeIndex and update screen
+        function rotateOnce() {
+            activeIndex = (activeIndex + 1) % NUM_THUMBS;
+            setActive(activeIndex, false);
+        }
+
+        function startRotation() {
+            // ensure a single timer
+            if (rotTimer) clearInterval(rotTimer);
+            rotTimer = setInterval(() => {
+                rotateOnce();
+            }, 5000);
+        }
+
+        function stopRotation() {
+            if (rotTimer) {
+                clearInterval(rotTimer);
+                rotTimer = null;
+            }
+        }
+
+        // restart rotation: stop and start so next change occurs 5s later
+        function restartRotation() {
+            stopRotation();
+            // ensure any existing glow remains but reapply after short delay if desired
+            startRotation();
+        }
+
+        // initial display
+        setActive(0, false);
+        startRotation();
+
+        // Remove screen glow after animation so it doesn't remain permanently intense
+        // Keep small subtle glow class — here we remove then re-add on changes to create a pulse.
+        bigScreenImg.addEventListener('load', () => {
+            // briefly keep glow, then reduce
+            setTimeout(() => {
+                bigScreen.classList.remove('glow');
+            }, 1200);
+        });
+
+        // Reset button: collapse/highlight first slot and restart rotation
+        document.getElementById('reset-slots').addEventListener('click', () => {
+            setActive(0, true);
+        });
+
+        // When leaving step4, ensure screen glow removed and rotation continues (or pause if desired)
+        const step4El = document.getElementById('step4');
+        const stepObserver = new MutationObserver((mutations) => {
+            mutations.forEach(m => {
+                if (m.attributeName === 'class') {
+                    if (!step4El.classList.contains('active')) {
+                        // collapse visual emphasis
+                        thumbs.forEach(t => t.classList.remove('active'));
+                        bigScreen.classList.remove('glow');
+                        // keep rotation running so when user returns it continues
+                    } else {
+                        // when entering step4, ensure active thumb & screen are synced
+                        setActive(activeIndex, false);
+                    }
+                }
             });
         });
+        stepObserver.observe(step4El, { attributes: true });
 
-        // Allow dropping
-        scrapbook.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            scrapbook.style.borderColor = 'rgba(244,63,94,0.7)';
-        });
-        scrapbook.addEventListener('dragleave', (e) => {
-            scrapbook.style.borderColor = 'rgba(244,63,94,0.35)';
-        });
-
-        scrapbook.addEventListener('drop', (e) => {
-            e.preventDefault();
-            scrapbook.style.borderColor = 'rgba(244,63,94,0.35)';
-            const src = e.dataTransfer.getData('text/plain');
-            const rect = scrapbook.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            createDroppedImage(src, x, y);
-        });
-
-        function createDroppedImage(src, x, y) {
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = 'dropped-img';
-            img.style.left = `${Math.max(8, x - 70)}px`;
-            img.style.top = `${Math.max(8, y - 70)}px`;
-            img.style.width = '140px';
-            img.style.height = '140px';
-            img.style.objectFit = 'cover';
-            img.draggable = false; // we'll implement pointer drag
-            makePointerDraggable(img);
-            scrapbook.appendChild(img);
-            dropCounter++;
-            return img;
-        }
-
-        // Pointer drag support for dropped images (works on touch & mouse)
-        function makePointerDraggable(el) {
-            let offsetX = 0, offsetY = 0;
-            let dragging = false;
-
-            function onPointerDown(e) {
+        // Accessibility: keyboard navigation for thumbnails (left/right + enter)
+        thumbRow.addEventListener('keydown', (e) => {
+            const KEY_LEFT = 37, KEY_RIGHT = 39, KEY_ENTER = 13, KEY_SPACE = 32;
+            if (e.keyCode === KEY_LEFT) {
                 e.preventDefault();
-                dragging = true;
-                el.setPointerCapture(e.pointerId);
-                const rect = el.getBoundingClientRect();
-                const parentRect = scrapbook.getBoundingClientRect();
-                offsetX = e.clientX - rect.left;
-                offsetY = e.clientY - rect.top;
-                el.style.cursor = 'grabbing';
-            }
-            function onPointerMove(e) {
-                if (!dragging) return;
-                const parentRect = scrapbook.getBoundingClientRect();
-                let left = e.clientX - parentRect.left - offsetX;
-                let top = e.clientY - parentRect.top - offsetY;
-                // constrain inside scrapbook
-                left = Math.max(6, Math.min(left, parentRect.width - el.offsetWidth - 6));
-                top = Math.max(6, Math.min(top, parentRect.height - el.offsetHeight - 6));
-                el.style.left = `${left}px`;
-                el.style.top = `${top}px`;
-            }
-            function onPointerUp(e) {
-                dragging = false;
-                try { el.releasePointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-                el.style.cursor = 'grab';
-            }
-
-            // Add a tiny double-tap to remove behavior (optional)
-            let lastTap = 0;
-            function onDoubleTapRemove(e) {
-                const now = Date.now();
-                if (now - lastTap < 300) {
-                    // remove
-                    if (el.parentNode) el.parentNode.removeChild(el);
+                const next = (activeIndex - 1 + NUM_THUMBS) % NUM_THUMBS;
+                setActive(next, true);
+            } else if (e.keyCode === KEY_RIGHT) {
+                e.preventDefault();
+                const next = (activeIndex + 1) % NUM_THUMBS;
+                setActive(next, true);
+            } else if (e.keyCode === KEY_ENTER || e.keyCode === KEY_SPACE) {
+                e.preventDefault();
+                // find focused thumbnail
+                const focused = document.activeElement;
+                if (focused && focused.classList.contains('thumb')) {
+                    const idx = parseInt(focused.getAttribute('data-index'), 10);
+                    setActive(idx, true);
                 }
-                lastTap = now;
             }
-
-            el.addEventListener('pointerdown', onPointerDown);
-            window.addEventListener('pointermove', onPointerMove);
-            window.addEventListener('pointerup', onPointerUp);
-            el.addEventListener('click', onDoubleTapRemove);
-        }
-
-        // Clear scrapbook
-        document.getElementById('clear-scrapbook').addEventListener('click', () => {
-            Array.from(scrapbook.querySelectorAll('.dropped-img')).forEach(i => i.remove());
-            dropCounter = 0;
         });
 
-        // Optional: pre-populate scrapbook with a sample photo in center
-        // createDroppedImage('Lamar.jpg', 380, 180);
+        // Make thumbs focusable for keyboard use
+        thumbs.forEach(t => {
+            t.tabIndex = 0;
+        });
 
     </script>
 </body>
