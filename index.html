@@ -610,7 +610,16 @@
             'Hermatch.jpg',
             'Mymatch.jpg',
             'Home.jpg',
-            'Lamar.jpg'
+            'her.jpg'
+        ];
+
+        // captions for each slot (meaningful texts shown above/below the big image)
+        const captions = [
+            'The day we laughed until sunset',
+            'Matching moments — forever twins',
+            'That perfect little match',
+            'Our cozy home memories',
+            'Her — the light of my life'
         ];
 
         const NUM_THUMBS = 5;
@@ -628,7 +637,9 @@
             const im = document.createElement('img');
             // choose source (if images shorter, loop)
             im.src = images[i % images.length];
-            im.alt = `memory-thumb-${i+1}`;
+            // use caption as alt/title for more meaningful text
+            im.alt = captions[i % captions.length] || `memory-thumb-${i+1}`;
+            im.title = im.alt;
 
             // fallback strategy
             im.onerror = function () {
@@ -657,7 +668,7 @@
             activeIndex = index % NUM_THUMBS;
             const imgSrc = images[activeIndex % images.length];
             bigScreenImg.src = imgSrc;
-            bigScreenImg.alt = `Memory ${activeIndex + 1}`;
+            bigScreenImg.alt = captions[activeIndex] || `Memory ${activeIndex + 1}`;
             // reset fallback marker so new image can try again if needed
             delete bigScreenImg.dataset._triedFallback;
             bigScreenImg.onerror = function () {
@@ -682,7 +693,7 @@
             bigScreen.classList.add('glow');
 
             // update caption
-            screenCaption.textContent = `Slot ${activeIndex + 1}`;
+            screenCaption.textContent = captions[activeIndex] || `Slot ${activeIndex + 1}`;
 
             // if user clicked, restart rotation (so next automatic change happens 5s after click)
             if (userClicked) restartRotation();
