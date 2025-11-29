@@ -40,7 +40,7 @@
         .step {
             position: absolute;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             padding: 40px;
             background: rgba(255, 255, 255, 0.509);
             backdrop-filter: blur(10px);
@@ -136,6 +136,62 @@
             height: 100%;
             z-index: 1;
         }
+
+        /* Gallery / scrapbook styles */
+        .gallery-tray {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .thumb {
+            width: 110px;
+            height: 110px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            cursor: grab;
+            user-select: none;
+        }
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .dropzone {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 760px;
+            height: 360px;
+            border: 2px dashed rgba(244,63,94,0.35);
+            border-radius: 12px;
+            position: relative;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+        }
+        .dropzone .hint {
+            pointer-events: none;
+        }
+        .dropped-img {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 10px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+            touch-action: none; /* allow pointer events */
+            user-select: none;
+            cursor: grab;
+        }
+        .controls-row {
+            display:flex;
+            gap:12px;
+            justify-content:center;
+            margin-top: 14px;
+        }
     </style>
 </head>
 
@@ -191,23 +247,55 @@
                 <button class="btn" id="next-btn-3">Stroll Down Memory Lane</button>
             </div>
 
-            <!-- Step 4: Memory Lane -->
+            <!-- NEW Step 4: Small images / gallery tray & movable scrapbook -->
             <div class="step" id="step4">
+                <div class="emoji">🖼️</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Share More Memories</h2>
+                <p class="text-lg text-gray-700 mb-6">Drag the small images into the scrapbook area below. Once dropped, you can move them around to arrange your favorite moments.</p>
+
+                <div class="gallery-tray" id="gallery-tray">
+                    <!-- Thumbnails - using Lamar.jpg as primary source and fallbacks -->
+                    <div class="thumb" draggable="true" data-src="Lamar.jpg">
+                        <img src="Lamar.jpg" alt="thumb1" onerror="this.src='https://picsum.photos/seed/1/400'">
+                    </div>
+                    <div class="thumb" draggable="true" data-src="Lamar.jpg">
+                        <img src="Lamar.jpg" alt="thumb2" onerror="this.src='https://picsum.photos/seed/2/400'">
+                    </div>
+                    <div class="thumb" draggable="true" data-src="Lamar.jpg">
+                        <img src="Lamar.jpg" alt="thumb3" onerror="this.src='https://picsum.photos/seed/3/400'">
+                    </div>
+                    <div class="thumb" draggable="true" data-src="Lamar.jpg">
+                        <img src="Lamar.jpg" alt="thumb4" onerror="this.src='https://picsum.photos/seed/4/400'">
+                    </div>
+                </div>
+
+                <div class="dropzone" id="scrapbook">
+                    <div class="hint">Drop images here — then drag them around to arrange</div>
+                </div>
+
+                <div class="controls-row">
+                    <button class="btn" id="clear-scrapbook">Clear Scrapbook</button>
+                    <button class="btn" id="next-btn-gallery">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Memory Lane (original step4 renamed to step5) -->
+            <div class="step" id="step5">
                 <div class="emoji">📸</div>
                 <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Seeee how Cuteeeee 😭😭😭 </h2>
                 <div class="bg-gradient-to-r from-pink-200 to-rose-200 rounded-xl p-8 mb-8 flex flex-col justify-center items-center">
                     <!-- Replace the image with a collage if you want -->
-                    <img src="Lamar.jpg" height="560" width="1000" alt="Our Best Moments">
+                    <img src="Lamar.jpg" height="560" width="1000" alt="Our Best Moments" onerror="this.src='https://picsum.photos/seed/5/1000/560'">
                     <p class="text-lg text-gray-700 mt-2">I luvvv U sooo much hehe 🥹🥹🥹</p>
                 </div>
                 <p class="text-lg text-gray-700 mb-6">
                     Thanks for all the fun, support, and wild adventures. Our story's just starting!
                 </p>
-                <button class="btn" id="next-btn-4">A Wish For Our Future</button>
+                <button class="btn" id="next-btn-5">A Wish For Our Future</button>
             </div>
 
-            <!-- Step 5: Final Wish -->
-            <div class="step" id="step5">
+            <!-- Step 6: Final Wish (original step5 renamed to step6) -->
+            <div class="step" id="step6">
                 <div class="emoji">💌</div>
                 <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">Here's to Us!</h2>
                 <p class="text-lg text-gray-700 mb-8">
@@ -222,15 +310,8 @@
         </div>
     </div>
 
-    <!-- The rest of your JS for hearts/confetti/progress remains unchanged, paste your existing script here -->
     <script>
-        // ...your full JavaScript as before, unchanged...
-        // Copy/paste the ENTIRE <script> block from your original file (it does not need editing)
-        // The functionality of steps, confetti, hearts, etc. remains the same
-        // Just update 'LAMAR.png' in step 4 to your own image/collage (e.g., 'TOGETHER.png') if you wish
-        // [Insert your JavaScript here]
-        
-        // Three.js Heart Background
+        // Three.js Heart Background and existing animation code unchanged (kept compact here)
         const container = document.getElementById('canvas-container');
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -240,7 +321,7 @@
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 30;
 
-        // Improved Heart Geometry
+        // Heart shape (same as before)
         const x = 0, y = 0;
         const heartShape = new THREE.Shape();
         heartShape.moveTo(x + 0.5, y + 0.5);
@@ -261,7 +342,6 @@
 
         const heartGeometry = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
 
-        // Create multiple hearts with different colors and properties
         const hearts = [];
         const colors = [
             0xff6b6b, 0xff8e8e, 0xffb3b3, 0xffd8d8,
@@ -280,7 +360,6 @@
 
             const heart = new THREE.Mesh(heartGeometry, material);
 
-            // Random position and scale
             heart.position.x = (Math.random() - 0.5) * 50;
             heart.position.y = (Math.random() - 0.5) * 50;
             heart.position.z = (Math.random() - 0.5) * 50;
@@ -288,11 +367,9 @@
             const scale = Math.random() * 0.8 + 0.5;
             heart.scale.set(scale, scale, scale);
 
-            // Random rotation
             heart.rotation.x = Math.random() * Math.PI;
             heart.rotation.y = Math.random() * Math.PI;
 
-            // Store animation properties
             heart.userData = {
                 speedX: Math.random() * 0.02 - 0.01,
                 speedY: Math.random() * 0.02 - 0.01,
@@ -309,7 +386,6 @@
             hearts.push(heart);
         }
 
-        // Add lights
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
@@ -317,38 +393,29 @@
         directionalLight.position.set(1, 1, 1);
         scene.add(directionalLight);
 
-        // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-
-            // Animate hearts
             hearts.forEach(heart => {
-                // Floating animation
                 const time = Date.now() * 0.001;
                 heart.position.x = heart.userData.originalX + Math.sin(time * heart.userData.speedX * 10) * heart.userData.floatDistance;
                 heart.position.y = heart.userData.originalY + Math.sin(time * heart.userData.speedY * 10) * heart.userData.floatDistance;
                 heart.position.z = heart.userData.originalZ + Math.sin(time * heart.userData.speedZ * 10) * heart.userData.floatDistance;
-
-                // Rotation
                 heart.rotation.x += heart.userData.rotationSpeedX;
                 heart.rotation.y += heart.userData.rotationSpeedY;
             });
-
             renderer.render(scene, camera);
         }
-
         animate();
 
-        // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Step Navigation
+        // Step Navigation changes: now 6 steps (added gallery)
         let currentStep = 1;
-        const totalSteps = 5;
+        const totalSteps = 6;
 
         function updateProgressBar() {
             const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
@@ -356,24 +423,17 @@
         }
 
         function showStep(stepNumber) {
-            // Hide all steps
             document.querySelectorAll('.step').forEach(step => {
                 step.classList.remove('active');
             });
-
-            // Show current step
             document.getElementById(`step${stepNumber}`).classList.add('active');
-
-            // Update progress bar
             updateProgressBar();
-
-            // Special effect for last step
             if (stepNumber === totalSteps) {
                 document.getElementById('confetti-btn').classList.add('animate-pulse');
             }
         }
 
-        // Button event listeners
+        // Navigation listeners
         document.getElementById('start-btn').addEventListener('click', () => {
             currentStep = 2;
             showStep(currentStep);
@@ -384,19 +444,26 @@
             showStep(currentStep);
         });
 
+        // Goes to gallery (new step 4)
         document.getElementById('next-btn-3').addEventListener('click', () => {
             currentStep = 4;
             showStep(currentStep);
         });
 
-        document.getElementById('next-btn-4').addEventListener('click', () => {
+        // From gallery to memory lane (original step4 now step5)
+        document.getElementById('next-btn-gallery').addEventListener('click', () => {
             currentStep = 5;
             showStep(currentStep);
         });
 
-        // Confetti button
+        // From memory lane to final wish
+        document.getElementById('next-btn-5').addEventListener('click', () => {
+            currentStep = 6;
+            showStep(currentStep);
+        });
+
+        // Confetti button (last step)
         document.getElementById('confetti-btn').addEventListener('click', () => {
-            // Standard confetti
             confetti({
                 particleCount: 150,
                 spread: 70,
@@ -404,7 +471,6 @@
                 colors: ['#ff0000', '#ff69b4', '#ff1493', '#ffc0cb']
             });
 
-            // Heart-shaped confetti
             setTimeout(() => {
                 confetti({
                     particleCount: 30,
@@ -415,7 +481,6 @@
                 });
             }, 300);
 
-            // More hearts from different directions
             setTimeout(() => {
                 confetti({
                     particleCount: 20,
@@ -436,7 +501,6 @@
                 });
             }, 600);
 
-            // Make hearts float up from the background
             hearts.forEach(heart => {
                 gsap.to(heart.position, {
                     y: heart.position.y - 30,
@@ -454,6 +518,124 @@
 
         // Initialize progress bar
         updateProgressBar();
+
+        // --------------------
+        // Gallery / scrapbook logic
+        // --------------------
+        const tray = document.getElementById('gallery-tray');
+        const scrapbook = document.getElementById('scrapbook');
+        let dropCounter = 0;
+
+        // Add dragstart to thumbnails
+        tray.querySelectorAll('.thumb').forEach(thumb => {
+            thumb.addEventListener('dragstart', (e) => {
+                const src = thumb.getAttribute('data-src') || thumb.querySelector('img').src;
+                e.dataTransfer.setData('text/plain', src);
+                // create a drag image for nicer UX
+                const dragImg = thumb.querySelector('img').cloneNode();
+                dragImg.style.width = '120px';
+                dragImg.style.height = '120px';
+                dragImg.style.objectFit = 'cover';
+                document.body.appendChild(dragImg);
+                e.dataTransfer.setDragImage(dragImg, 60, 60);
+                // cleanup after a tiny delay
+                setTimeout(() => { if (dragImg && dragImg.parentNode) dragImg.parentNode.removeChild(dragImg); }, 0);
+            });
+        });
+
+        // Allow dropping
+        scrapbook.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            scrapbook.style.borderColor = 'rgba(244,63,94,0.7)';
+        });
+        scrapbook.addEventListener('dragleave', (e) => {
+            scrapbook.style.borderColor = 'rgba(244,63,94,0.35)';
+        });
+
+        scrapbook.addEventListener('drop', (e) => {
+            e.preventDefault();
+            scrapbook.style.borderColor = 'rgba(244,63,94,0.35)';
+            const src = e.dataTransfer.getData('text/plain');
+            const rect = scrapbook.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            createDroppedImage(src, x, y);
+        });
+
+        function createDroppedImage(src, x, y) {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'dropped-img';
+            img.style.left = `${Math.max(8, x - 70)}px`;
+            img.style.top = `${Math.max(8, y - 70)}px`;
+            img.style.width = '140px';
+            img.style.height = '140px';
+            img.style.objectFit = 'cover';
+            img.draggable = false; // we'll implement pointer drag
+            makePointerDraggable(img);
+            scrapbook.appendChild(img);
+            dropCounter++;
+            return img;
+        }
+
+        // Pointer drag support for dropped images (works on touch & mouse)
+        function makePointerDraggable(el) {
+            let offsetX = 0, offsetY = 0;
+            let dragging = false;
+
+            function onPointerDown(e) {
+                e.preventDefault();
+                dragging = true;
+                el.setPointerCapture(e.pointerId);
+                const rect = el.getBoundingClientRect();
+                const parentRect = scrapbook.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                el.style.cursor = 'grabbing';
+            }
+            function onPointerMove(e) {
+                if (!dragging) return;
+                const parentRect = scrapbook.getBoundingClientRect();
+                let left = e.clientX - parentRect.left - offsetX;
+                let top = e.clientY - parentRect.top - offsetY;
+                // constrain inside scrapbook
+                left = Math.max(6, Math.min(left, parentRect.width - el.offsetWidth - 6));
+                top = Math.max(6, Math.min(top, parentRect.height - el.offsetHeight - 6));
+                el.style.left = `${left}px`;
+                el.style.top = `${top}px`;
+            }
+            function onPointerUp(e) {
+                dragging = false;
+                try { el.releasePointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+                el.style.cursor = 'grab';
+            }
+
+            // Add a tiny double-tap to remove behavior (optional)
+            let lastTap = 0;
+            function onDoubleTapRemove(e) {
+                const now = Date.now();
+                if (now - lastTap < 300) {
+                    // remove
+                    if (el.parentNode) el.parentNode.removeChild(el);
+                }
+                lastTap = now;
+            }
+
+            el.addEventListener('pointerdown', onPointerDown);
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', onPointerUp);
+            el.addEventListener('click', onDoubleTapRemove);
+        }
+
+        // Clear scrapbook
+        document.getElementById('clear-scrapbook').addEventListener('click', () => {
+            Array.from(scrapbook.querySelectorAll('.dropped-img')).forEach(i => i.remove());
+            dropCounter = 0;
+        });
+
+        // Optional: pre-populate scrapbook with a sample photo in center
+        // createDroppedImage('Lamar.jpg', 380, 180);
+
     </script>
 </body>
 
